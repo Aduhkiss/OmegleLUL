@@ -13,7 +13,7 @@ All the other code is hand crafted by me
 
 ## Download
 
-You may download the latest copy of the program [Here](https://github.com/atticusthecoder/OmegleLUL/packages)
+You may download the latest copy of the program [Here](https://github.com/atticusthecoder/OmegleLUL/releases)
 
 ## Donations
 

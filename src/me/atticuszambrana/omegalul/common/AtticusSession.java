@@ -28,6 +28,16 @@ public class AtticusSession {
 		alive = false;
 	}
 	
+	public void disconnect() {
+		try {
+			session.disconnect();
+		} catch (OmegleException e) {
+			// TODO Auto-generated catch block
+			Start.getGui().getMessageGui().add("An error has occured while attempting to disconnect: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
 	public void create() {
 		try {
 			session = Start.getOmegle().openSession(OmegleMode.NORMAL, new OmegleEventAdaptor() {

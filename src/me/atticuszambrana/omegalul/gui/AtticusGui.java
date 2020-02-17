@@ -89,6 +89,7 @@ public class AtticusGui extends Plugin {
 		reconnectButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
+				session.disconnect();
 				session.create();
 				reconnectButton.setText("Reconnect");
 				messages.add("Reconnecting...");
