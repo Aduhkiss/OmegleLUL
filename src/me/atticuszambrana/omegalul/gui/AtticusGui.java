@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import me.atticuszambrana.omegalul.Start;
 import me.atticuszambrana.omegalul.common.AtticusSession;
 import me.atticuszambrana.omegalul.common.Plugin;
 import me.atticuszambrana.omegalul.common.util.F;
@@ -31,7 +30,7 @@ public class AtticusGui extends Plugin {
 	@Override
 	public void onEnable() {
 		// Create the session
-		session = new AtticusSession("Atticus");
+		session = new AtticusSession();
 		
 		// Create the initial frame and set the layout for it
 		
@@ -47,6 +46,7 @@ public class AtticusGui extends Plugin {
 		JTextField messageBox = new JTextField(40);
 		panel.add(messageBox, BorderLayout.CENTER);
 
+		panel.add(titleLabel);
 		
 		// Lets make it so you can just hit enter to send your message
 		messageBox.addActionListener(new ActionListener() {
@@ -89,7 +89,10 @@ public class AtticusGui extends Plugin {
 		reconnectButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				session.disconnect();
+				if(session.isAlive()) {
+					session.kill();
+					session.disconnect();
+				}
 				session.create();
 				reconnectButton.setText("Reconnect");
 				messages.add("Reconnecting...");

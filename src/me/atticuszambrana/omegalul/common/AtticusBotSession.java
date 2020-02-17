@@ -6,8 +6,9 @@ import org.nikki.omegle.core.OmegleSession;
 import org.nikki.omegle.event.OmegleEventAdaptor;
 
 import me.atticuszambrana.omegalul.Start;
+import me.atticuszambrana.omegalul.bot.BobTheBot;
 
-public class AtticusSession {
+public class AtticusBotSession {
 	
 	private String name;
 	private int id;
@@ -15,6 +16,8 @@ public class AtticusSession {
 	private boolean alive;
 	
 	private OmegleSession session;
+	
+	private AtticusBot bot;
 	
 	public void disconnect() {
 		try {
@@ -27,6 +30,9 @@ public class AtticusSession {
 	}
 	
 	public void create() {
+		
+		bot = new BobTheBot();
+		
 		try {
 			session = Start.getOmegle().openSession(OmegleMode.NORMAL, new OmegleEventAdaptor() {
 				@Override
@@ -38,12 +44,29 @@ public class AtticusSession {
 				public void chatConnected(OmegleSession session) {
 					System.out.println("You are now talking to a random stranger!");
 					Start.getGui().getMessageGui().add("You are now talking to a random stranger!");
+					
+					// BOT CODE
+					try {
+						session.send(bot.parse("what is your name"));
+					} catch (OmegleException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					alive = true;
 				}
 				@Override
 				public void chatMessage(OmegleSession session, String message) {
 					System.out.println("Stranger: " + message);
 					Start.getGui().getMessageGui().add("Stranger: " + message);
+					
+					// BOT CODE
+					try {
+						session.send(bot.parse(message));
+					} catch (OmegleException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				@Override
 				public void messageSent(OmegleSession session, String message) {

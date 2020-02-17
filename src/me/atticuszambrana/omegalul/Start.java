@@ -7,7 +7,7 @@ import me.atticuszambrana.omegalul.gui.AtticusMessageGui;
 
 public class Start {
 	
-	private final static String myVersion = "0.0.0.1";
+	private final static String myVersion = "0.0.1.1";
 	
 	private static Omegle omegle;
 	private static AtticusGui gui;
@@ -24,7 +24,6 @@ public class Start {
 		
 		// Initialize the new Gui that I am working on
 		gui = new AtticusGui(true, new AtticusMessageGui());
-		
 	}
 	
 	public static Omegle getOmegle() {

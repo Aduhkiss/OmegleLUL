@@ -1,7 +1,10 @@
 package me.atticuszambrana.omegalul.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -28,9 +31,20 @@ public class AtticusMessageGui {
 		JScrollPane pane = new JScrollPane(panel);
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		frame.add(pane);
+		//frame.add(pane);
 		
-		frame.add(panel);
+		pane.setAutoscrolls(true);
+		
+		// This code will basically make it impossible to scroll up, however
+		// I would rather have this, then not being able to scroll at all
+		//TODO: Actually fix this bug
+		pane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {  
+	        public void adjustmentValueChanged(AdjustmentEvent e) {  
+	            e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+	        }
+	    });
+		
+		frame.add(pane);
 		frame.setSize(400, 500);
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);
@@ -46,7 +60,10 @@ public class AtticusMessageGui {
 	
 	public void add(String text) {
 		String old = allMessages.getText();
-		messages.add(text);
+		try {
+			messages.add(text);
+		} catch(ConcurrentModificationException ex) {
+		}
 		// then update all the current ones
 		for(String m : messages) {
 			allMessages.setText("<html>" + old + "<br>" + text + "");
