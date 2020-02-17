@@ -17,7 +17,7 @@ You may download the latest copy of the program [Here](https://github.com/atticu
 
 ## Donations
 
-If you would like to, help fund my coffee addiction by donating [here](paypal.me/atticuszambrana)
+If you would like to, help fund my coffee addiction by donating [here](https://paypal.me/atticuszambrana)
 By the way you don't have to lol, thanks <3
 
 ## Contributions
