@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class AtticusMessageGui {
 	
@@ -21,6 +23,16 @@ public class AtticusMessageGui {
 	private JLabel allMessages = new JLabel();
 	
 	public AtticusMessageGui() {
+		
+		// Copy paste from the last class that did this
+		// Set the look and feel for JFrame to use
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			// I literally could not care less
+		}
+		
 		frame = new JFrame("My Messages");
 		panel = new JPanel();		
 		topLabel = new JLabel("Your messages will be displayed here");

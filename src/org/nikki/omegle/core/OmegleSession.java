@@ -33,6 +33,8 @@ import org.nikki.omegle.event.MessageSendCallback;
 import org.nikki.omegle.event.OmegleEventListener;
 import org.nikki.omegle.util.HttpUtil;
 
+import me.atticuszambrana.omegalul.common.util.F;
+
 /**
  * Represents an active Omegle session.
  * 
@@ -161,6 +163,7 @@ public class OmegleSession {
 		map.put("msg", text);
 		try {
 			String resp = HttpUtil.post(Omegle.SEND_URL, map);
+			//System.out.println(F.main("Debug", resp));
 			if (!resp.equals("win")) {
 				throw new OmegleException("Unable to send message, response: "
 						+ resp);

@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import me.atticuszambrana.omegalul.common.AtticusSession;
 import me.atticuszambrana.omegalul.common.Plugin;
@@ -29,6 +31,15 @@ public class AtticusGui extends Plugin {
 	
 	@Override
 	public void onEnable() {
+		
+		// Set the look and feel for JFrame to use
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			// I literally could not care less
+		}
+		
 		// Create the session
 		session = new AtticusSession();
 		

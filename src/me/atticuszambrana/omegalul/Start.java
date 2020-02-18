@@ -2,17 +2,27 @@ package me.atticuszambrana.omegalul;
 
 import org.nikki.omegle.Omegle;
 
+import me.atticuszambrana.omegalul.common.util.StringUtil;
 import me.atticuszambrana.omegalul.gui.AtticusGui;
 import me.atticuszambrana.omegalul.gui.AtticusMessageGui;
 
 public class Start {
 	
-	private final static String myVersion = "0.0.1.1";
+	private final static String myVersion = "0.1.2";
 	
 	private static Omegle omegle;
 	private static AtticusGui gui;
+	private static boolean saveLogs;
 
 	public static void main(String[] args) {
+		
+		// Combine all the arguments that were passed in
+		String arguments = StringUtil.combine(args, 0);
+		
+		// Then look through all of them to see if we can find the flags we want
+		if(arguments.indexOf("--save-logs") >=0) {
+			saveLogs = true;
+		}
 		
 		// Any things that we want to do before the program actually starts up, to initialize?
 		
@@ -32,6 +42,14 @@ public class Start {
 	
 	public static AtticusGui getGui() {
 		return gui;
+	}
+	
+	public static boolean saveLogs() {
+		return saveLogs;
+	}
+	
+	public static String getVersion() {
+		return myVersion;
 	}
 
 }

@@ -160,6 +160,67 @@ public class Omegle implements Runnable {
 	public OmegleSession openSession(Object... objs) throws OmegleException {
 		return openSession(OmegleMode.NORMAL, objs);
 	}
+	
+	/*
+	 * Atticus wrote this method to see if he could get the api to also except topics lol
+	 */
+	
+	public OmegleSession openSession(OmegleMode mode, String topic, Object... objs) 
+			throws OmegleException {
+		try {
+			Map<String, Object> vars = new HashMap<String, Object>();
+			vars.put("rcs", "1");
+			vars.put("firstevents", firstEvents ? "1" : "0");
+			vars.put("topics", topic);
+
+			if (mode == OmegleMode.SPY) {
+				vars.put("wantsspy", "1");
+			} else if (mode == OmegleMode.SPY_QUESTION) {
+				if (objs.length > 0) {
+					if (objs[0] instanceof String) {
+						vars.put("ask", objs[0].toString());
+					} else {
+						throw new OmegleException(
+								"The question MUST be passed as the first parameter!");
+					}
+				} else {
+					throw new OmegleException(
+							"You cannot open a spy question session without a question!");
+				}
+			}
+
+			URL url = new URL(OPEN_URL + "?" + HttpUtil.implode(vars));
+
+			JSONObject resp = new JSONObject(HttpUtil.post(url, ""));
+
+			if (!resp.has("clientID")) {
+				throw new OmegleException("Omegle didn't return a client id!");
+			}
+
+			OmegleSession session = new OmegleSession(this,
+					resp.getString("clientID"));
+
+			for (Object obj : objs) {
+				if (obj instanceof OmegleEventListener) {
+					session.addListener((OmegleEventListener) obj);
+				}
+			}
+
+			if (resp.has("events")) {
+				session.parseEvents(resp.getJSONArray("events"));
+			}
+
+			synchronized (sessions) {
+				sessions.add(session);
+			}
+
+			return session;
+		} catch (IOException e) {
+			throw new OmegleException(e);
+		} catch (JSONException e) {
+			throw new OmegleException(e);
+		}
+	}
 
 	/**
 	 * Opens a new omegle session. Note: This CONNECTS THE SESSION!
