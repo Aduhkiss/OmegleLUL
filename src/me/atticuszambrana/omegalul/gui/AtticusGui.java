@@ -19,7 +19,9 @@ import org.nikki.omegle.core.OmegleException;
 
 import me.atticuszambrana.omegalul.common.AtticusSession;
 import me.atticuszambrana.omegalul.common.Plugin;
+import me.atticuszambrana.omegalul.common.Title;
 import me.atticuszambrana.omegalul.common.util.F;
+import me.atticuszambrana.omegalul.common.util.Scroller;
 
 public class AtticusGui extends Plugin {
 	
@@ -55,7 +57,10 @@ public class AtticusGui extends Plugin {
 		panel.setLayout(new FlowLayout());
 		
 		//TODO Make this scrolling text like the Mineplex Scoreboard
-		JLabel titleLabel = new JLabel("Welcome to OMEGLELUL");
+		JLabel titleLabel = new JLabel();
+		
+		// Then do the really cool Mineplex scrolling thing
+		Title title = new Title(titleLabel, new Scroller("Welcome to OMEGLELUL - Written by Atticus Zambrana", 35, 10));
 		
 		JTextField messageBox = new JTextField(40);
 		panel.add(messageBox, BorderLayout.CENTER);
