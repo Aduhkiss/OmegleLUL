@@ -104,4 +104,8 @@ public class AtticusSession {
 	public void kill() {
 		alive = false;
 	}
+	
+	public OmegleSession getSession() {
+		return session;
+	}
 }
